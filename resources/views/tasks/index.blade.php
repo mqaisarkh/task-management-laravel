@@ -62,7 +62,27 @@
                                                 </span>
                                             </td>
                                             <td class='px-4 py-3 text-end'>
-                                                <a href='{{ route('tasks.edit', $task) }}' class='btn btn-sm btn-outline-primary'>Edit</a>
+                                                <div class='d-inline-flex flex-wrap justify-content-end gap-2'>
+                                                    @if ($task->status === 'pending')
+                                                        <form action='{{ route('tasks.complete', $task) }}' method='POST'>
+                                                            @csrf
+                                                            @method('PATCH')
+                                                            <button type='submit' class='btn btn-sm btn-outline-success'>Complete</button>
+                                                        </form>
+                                                    @endif
+
+                                                    <a href='{{ route('tasks.edit', $task) }}' class='btn btn-sm btn-outline-primary'>Edit</a>
+
+                                                    <form
+                                                        action='{{ route('tasks.destroy', $task) }}'
+                                                        method='POST'
+                                                        onsubmit='return confirm(&quot;Delete this task?&quot;)'
+                                                    >
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type='submit' class='btn btn-sm btn-outline-danger'>Delete</button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
