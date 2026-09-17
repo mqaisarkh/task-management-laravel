@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -47,5 +48,25 @@ class TaskController extends Controller
         return redirect()
             ->route('tasks.index')
             ->with('success', 'Task created successfully.');
+    }
+
+    /**
+     * Show the form for editing a task.
+     */
+    public function edit(Task $task): View
+    {
+        return view('tasks.edit', compact('task'));
+    }
+
+    /**
+     * Update the given task.
+     */
+    public function update(UpdateTaskRequest $request, Task $task): RedirectResponse
+    {
+        $task->update($request->validated());
+
+        return redirect()
+            ->route('tasks.index')
+            ->with('success', 'Task updated successfully.');
     }
 }

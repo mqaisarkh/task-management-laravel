@@ -41,6 +41,7 @@
                                         <th class='px-4 py-3'>Task</th>
                                         <th class='px-4 py-3'>Due date</th>
                                         <th class='px-4 py-3'>Status</th>
+                                        <th class='px-4 py-3 text-end'>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -59,6 +60,9 @@
                                                 <span class='badge rounded-pill {{ $task->status === 'completed' ? 'text-bg-success' : 'text-bg-warning' }}'>
                                                     {{ ucfirst($task->status) }}
                                                 </span>
+                                            </td>
+                                            <td class='px-4 py-3 text-end'>
+                                                <a href='{{ route('tasks.edit', $task) }}' class='btn btn-sm btn-outline-primary'>Edit</a>
                                             </td>
                                         </tr>
                                     @endforeach
