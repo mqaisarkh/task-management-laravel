@@ -1,5 +1,5 @@
 <div class='mb-3'>
-    <label for='title' class='form-label'>Title</label>
+    <label for='title' class='form-label'>Title <span class='text-danger'>*</span></label>
     <input
         type='text'
         id='title'
@@ -7,6 +7,7 @@
         value='{{ old('title', $task?->title) }}'
         maxlength='255'
         class='form-control @error('title') is-invalid @enderror'
+        required
         autofocus
     >
     @error('title')
@@ -15,7 +16,7 @@
 </div>
 
 <div class='mb-3'>
-    <label for='description' class='form-label'>Description</label>
+    <label for='description' class='form-label'>Description <span class='text-body-secondary'>(optional)</span></label>
     <textarea
         id='description'
         name='description'
@@ -30,8 +31,8 @@
 
 <div class='row'>
     <div class='col-md-6 mb-3'>
-        <label for='status' class='form-label'>Status</label>
-        <select id='status' name='status' class='form-select @error('status') is-invalid @enderror'>
+        <label for='status' class='form-label'>Status <span class='text-danger'>*</span></label>
+        <select id='status' name='status' class='form-select @error('status') is-invalid @enderror' required>
             <option value='pending' @selected(old('status', $task?->status ?? 'pending') === 'pending')>Pending</option>
             <option value='completed' @selected(old('status', $task?->status) === 'completed')>Completed</option>
         </select>
@@ -41,7 +42,7 @@
     </div>
 
     <div class='col-md-6 mb-3'>
-        <label for='due_date' class='form-label'>Due date</label>
+        <label for='due_date' class='form-label'>Due date <span class='text-body-secondary'>(optional)</span></label>
         <input
             type='date'
             id='due_date'
