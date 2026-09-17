@@ -17,6 +17,7 @@ class TaskController extends Controller
     public function index(Request $request): View
     {
         $status = $request->string('status')->toString();
+        $search = $request->string('search')->trim()->toString();
 
         if (! in_array($status, [Task::STATUS_PENDING, Task::STATUS_COMPLETED], true)) {
             $status = 'all';
@@ -24,10 +25,11 @@ class TaskController extends Controller
 
         $tasks = Task::query()
             ->when($status !== 'all', fn ($query) => $query->where('status', $status))
+            ->when($search !== '', fn ($query) => $query->where('title', 'like', '%'.$search.'%'))
             ->latest()
             ->get();
 
-        return view('tasks.index', compact('tasks', 'status'));
+        return view('tasks.index', compact('tasks', 'status', 'search'));
     }
 
     /**

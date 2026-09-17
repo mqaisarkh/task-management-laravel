@@ -38,4 +38,14 @@ class Task extends Model
             'due_date' => 'date',
         ];
     }
+
+    /**
+     * Determine whether the task is overdue.
+     */
+    public function isOverdue(): bool
+    {
+        return $this->status === self::STATUS_PENDING
+            && $this->due_date !== null
+            && $this->due_date->isBefore(today());
+    }
 }
