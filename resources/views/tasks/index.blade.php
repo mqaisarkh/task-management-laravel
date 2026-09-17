@@ -10,10 +10,17 @@
     <main class='container py-5'>
         <div class='row justify-content-center'>
             <div class='col-lg-10'>
-                <header class='mb-4'>
-                    <h1 class='display-6 fw-semibold mb-2'>Task Manager</h1>
-                    <p class='text-body-secondary mb-0'>Keep track of your pending and completed tasks.</p>
+                <header class='d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 mb-4'>
+                    <div>
+                        <h1 class='display-6 fw-semibold mb-2'>Task Manager</h1>
+                        <p class='text-body-secondary mb-0'>Keep track of your pending and completed tasks.</p>
+                    </div>
+                    <a href='{{ route('tasks.create') }}' class='btn btn-primary'>Add Task</a>
                 </header>
+
+                @if (session('success'))
+                    <div class='alert alert-success' role='alert'>{{ session('success') }}</div>
+                @endif
 
                 <nav class='btn-group mb-4' aria-label='Filter tasks by status'>
                     <a href='{{ route('tasks.index') }}' class='btn {{ $status === 'all' ? 'btn-primary' : 'btn-outline-primary' }}'>All</a>
